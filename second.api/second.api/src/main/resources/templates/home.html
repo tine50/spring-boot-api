@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Employee web application</title>
+</head>
+<body>
+	<h2>Liste des employees</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>Prénom</th>
+				<th>Nom</th>
+				<th>Supprimer</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:if="${employees.empty}">
+				<td>Aucun employee en base de donnée</td>
+			</tr>
+			<tr th:each="employee: ${employees}">
+				<td><span th:text="${employee.firstName}"> Prénom </span></td>
+				<td><span th:text="${employee.lastName}"> Nom </span></td>
+				<td><a th:href="@{/deleteEmployee/{id}(id=${employee.id})}">Supprimer</a></td> 
+			</tr>
+		</tbody>
+	</table>
+	<form method="post" th:action="@{/saveEmployee}" th:object="${employee}">
+	    <input type="text" th:field="*{firstName}">
+	    <input type="text" th:field="*{lastName}">
+	    <input type="text" th:field="*{mail}">
+	    <input type="password" th:field="*{password}">
+	    <button type="submit" c>Créer</button>
+	</form>
+</body>
+</html>
